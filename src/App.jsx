@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { AuthProvider } from "./context/AuthContext";
 import { ProductsProvider } from "./context/ProductsContext";
 import { useAuthContext } from "./context/AuthContext";
+import { useProductsContext } from "./context/ProductsContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
@@ -12,6 +14,14 @@ import "./assets/style.css";
  */
 const AppRoutes = () => {
   const { isAuth, isChecking } = useAuthContext();
+  const { fetchProducts } = useProductsContext();
+
+  // 驗證成功後（包含重新整理）自動載入產品
+  useEffect(() => {
+    if (isAuth && !isChecking) {
+      fetchProducts();
+    }
+  }, [isAuth, isChecking]);
 
   return (
     <Routes>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 /**
  * 產品列表組件
  */
-const ProductList = ({ products, onViewDetail, loading }) => {
+const ProductList = ({ products, onViewDetail, loading, openModal }) => {
   return (
     <div>
       <h2>產品列表</h2>
@@ -24,6 +24,7 @@ const ProductList = ({ products, onViewDetail, loading }) => {
               <th>售價</th>
               <th>是否啟用</th>
               <th>查看細節</th>
+              <th>編輯/刪除</th>
             </tr>
           </thead>
           <tbody>
@@ -34,11 +35,7 @@ const ProductList = ({ products, onViewDetail, loading }) => {
                   <td>{item.origin_price}</td>
                   <td>{item.price}</td>
                   <td>
-                    <span
-                      className={`badge ${
-                        item.is_enabled ? "bg-success" : "bg-secondary"
-                      }`}
-                    >
+                    <span className={`${item.is_enabled ? "text-success" : ""}`}>
                       {item.is_enabled ? "啟用" : "未啟用"}
                     </span>
                   </td>
@@ -50,11 +47,29 @@ const ProductList = ({ products, onViewDetail, loading }) => {
                       查看細節
                     </button>
                   </td>
+                  <td>
+                    <div className="btn-group">
+                      <button
+                        type="button"
+                        className="btn btn-outline-primary btn-sm"
+                        onClick={() => openModal(item, "edit")}
+                      >
+                        編輯
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => openModal(item, "delete")}
+                      >
+                        刪除
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="5" className="text-center text-muted">
+                <td colSpan="6" className="text-center text-muted">
                   尚無產品資料
                 </td>
               </tr>
@@ -70,6 +85,7 @@ ProductList.propTypes = {
   products: PropTypes.array,
   onViewDetail: PropTypes.func.isRequired,
   loading: PropTypes.bool,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default ProductList;

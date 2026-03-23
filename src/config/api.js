@@ -84,6 +84,7 @@ export const API_ENDPOINTS = {
   // 產品相關
   PRODUCTS: `/api/${API_PATH}/admin/products`,
   PRODUCT: (id) => `/api/${API_PATH}/admin/product/${id}`,
+  CREATE_PRODUCT: `/api/${API_PATH}/admin/product`,
 };
 
 export default apiClient;
