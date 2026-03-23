@@ -9,7 +9,7 @@ import { useProductsContext } from "../context/ProductsContext";
  */
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { isAuth, loading, error, login } = useAuthContext();
+  const { isAuth, loading, error, login, clearError } = useAuthContext();
   const { fetchProducts } = useProductsContext();
 
   /**
@@ -34,7 +34,14 @@ const LoginPage = () => {
     }
   };
 
-  return <LoginForm onSubmit={handleLogin} loading={loading} error={error} />;
+  return (
+    <LoginForm
+      onSubmit={handleLogin}
+      loading={loading}
+      error={error}
+      onClearError={clearError}
+    />
+  );
 };
 
 export default LoginPage;

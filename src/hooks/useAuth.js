@@ -67,6 +67,13 @@ export const useAuth = () => {
     setIsAuth(false);
   };
 
+  /**
+   * 清除錯誤訊息
+   */
+  const clearError = () => {
+    setError(null);
+  };
+
   return {
     isAuth,
     loading,
@@ -74,5 +81,6 @@ export const useAuth = () => {
     login,
     checkLogin,
     logout,
+    clearError,
   };
 };

@@ -40,7 +40,7 @@ const AppRoutes = () => {
  */
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/react-week3">
       <AuthProvider>
         <ProductsProvider>
           <AppRoutes />

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 /**
  * 登入表單組件
  */
-const LoginForm = ({ onSubmit, loading, error }) => {
+const LoginForm = ({ onSubmit, loading, error, onClearError }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -16,6 +16,10 @@ const LoginForm = ({ onSubmit, loading, error }) => {
       ...prevData,
       [id]: value,
     }));
+    // 當用戶開始輸入時，清除錯誤訊息
+    if (error && onClearError) {
+      onClearError();
+    }
   };
 
   const handleSubmit = (e) => {
@@ -99,6 +103,7 @@ LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  onClearError: PropTypes.func,
 };
 
 export default LoginForm;

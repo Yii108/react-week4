@@ -19,6 +19,7 @@ const ProductDetail = ({ product }) => {
       <div className="card mb-3">
         {/* 產品主圖 */}
         <img
+          key={product.imageUrl}
           src={product.imageUrl}
           className="card-img-top primary-image"
           alt={product.title}
@@ -59,7 +60,7 @@ const ProductDetail = ({ product }) => {
               <div className="d-flex flex-wrap gap-2">
                 {product.imagesUrl.map((url, index) => (
                   <img
-                    key={index}
+                    key={url}
                     src={url}
                     className="images"
                     alt={`${product.title} - 圖片 ${index + 1}`}
