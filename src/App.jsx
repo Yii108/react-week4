@@ -11,7 +11,7 @@ import "./assets/style.css";
  * App 路由配置組件
  */
 const AppRoutes = () => {
-  const { isAuth } = useAuthContext();
+  const { isAuth, isChecking } = useAuthContext();
 
   return (
     <Routes>
@@ -22,7 +22,7 @@ const AppRoutes = () => {
       <Route
         path="/"
         element={
-          <ProtectedRoute isAuth={isAuth}>
+          <ProtectedRoute isAuth={isAuth} isChecking={isChecking}>
             <ProductsPage />
           </ProtectedRoute>
         }

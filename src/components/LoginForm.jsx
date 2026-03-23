@@ -46,6 +46,7 @@ const LoginForm = ({ onSubmit, loading, error, onClearError }) => {
                 type="email"
                 className="form-control"
                 id="username"
+                name="username"
                 placeholder="name@example.com"
                 value={formData.username}
                 onChange={handleInputChange}
@@ -62,6 +63,7 @@ const LoginForm = ({ onSubmit, loading, error, onClearError }) => {
                 type="password"
                 className="form-control"
                 id="password"
+                name="password"
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleInputChange}

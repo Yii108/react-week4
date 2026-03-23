@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_ENDPOINTS, apiClient } from "../config/api";
 
 /**
@@ -7,8 +7,20 @@ import { API_ENDPOINTS, apiClient } from "../config/api";
  */
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // 頁面載入時自動驗證 token
+  useEffect(() => {
+    const verify = async () => {
+      const result = await checkLogin();
+      setIsAuth(result);
+      setIsChecking(false);
+    };
+    verify();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * 登入函式
@@ -62,9 +74,15 @@ export const useAuth = () => {
   /**
    * 登出函式
    */
-  const logout = () => {
-    document.cookie = "hexToken=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-    setIsAuth(false);
+  const logout = async () => {
+    try {
+      await apiClient.post(API_ENDPOINTS.LOGOUT);
+    } catch (err) {
+      console.error("登出 API 失敗:", err.response?.data?.message);
+    } finally {
+      document.cookie = "hexToken=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+      setIsAuth(false);
+    }
   };
 
   /**
@@ -76,6 +94,7 @@ export const useAuth = () => {
 
   return {
     isAuth,
+    isChecking,
     loading,
     error,
     login,

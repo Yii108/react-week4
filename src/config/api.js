@@ -78,6 +78,7 @@ apiClient.interceptors.response.use(
 export const API_ENDPOINTS = {
   // 認證相關
   LOGIN: "/admin/signin",
+  LOGOUT: "/admin/signout",
   CHECK_AUTH: "/api/user/check",
 
   // 產品相關
